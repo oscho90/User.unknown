@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Baron &amp; Brooks</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#ffffff;--bg2:#f4f6f4;--card:#ffffff;--line:#e1e7e2;--gold:#1f4d36;--gold2:#123524;--txt:#1a2620;--mute:#6a786f;--err:#b3433f;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px);color-scheme:light}
+body{margin:0;background:var(--bg);color:var(--txt);font:400 16px/1.55 'Jost','Helvetica Neue',Arial,sans-serif;min-height:100vh}
+h1,h2,h3{font-family:'Cormorant Garamond',Georgia,'Times New Roman',serif;font-weight:600;margin:0}
+button,input,select,textarea{font:inherit;color:inherit}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:18px 5vw;border-bottom:1px solid var(--line);background:rgba(255,255,255,.94);position:sticky;top:env(safe-area-inset-top,0px);z-index:20;backdrop-filter:blur(8px)}
+.logo{font-family:'Cinzel Decorative',Georgia,'Times New Roman',serif;font-weight:700;font-size:clamp(20px,3.4vw,30px);color:var(--gold2);letter-spacing:.06em;cursor:pointer;background:none;border:0;padding:0}
+.logo small{display:block;font:300 10px/1 'Jost',sans-serif;letter-spacing:.42em;color:var(--mute);margin-top:6px;text-transform:uppercase;text-shadow:none}
+nav{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.btn{border:1px solid var(--gold);background:transparent;color:var(--gold2);padding:9px 18px;cursor:pointer;letter-spacing:.08em;font-size:13px;text-transform:uppercase;transition:.2s}
+.btn:hover{background:var(--gold);color:#fff}
+.btn.solid{background:var(--gold);color:#fff;font-weight:500}.btn.solid:hover{background:var(--gold2)}
+.btn.link{border:0;padding:9px 6px;color:var(--mute)}.btn.link:hover{background:none;color:var(--gold2)}
+.btn.danger{border-color:var(--err);color:var(--err)}.btn.danger:hover{background:var(--err);color:#fff}
+.hero{text-align:center;padding:52px 5vw 30px}
+.hero h1{font-size:clamp(34px,6vw,64px);line-height:1.05}
+.hero h1 em{color:var(--gold)}
+.hero p{color:var(--mute);max-width:560px;margin:14px auto 26px}
+.orn{color:var(--gold);letter-spacing:.5em;font-size:12px;margin-bottom:14px}
+.search{max-width:640px;margin:0 auto;display:flex;border:1px solid var(--gold);background:var(--bg2)}
+.search input{flex:1;min-width:0;background:none;border:0;padding:14px 18px;outline:none}
+.search input::placeholder{color:var(--mute)}
+.wrap{padding:0 5vw 60px;max-width:1280px;margin:0 auto}
+.filters{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0 22px;align-items:center}
+.filters select,.filters input,.f input,.f select,.f textarea{background:var(--bg2);border:1px solid var(--line);padding:10px 12px;outline:none;min-width:0}
+.filters select:focus,.filters input:focus,.f input:focus,.f select:focus,.f textarea:focus{border-color:var(--gold)}
+.count{color:var(--mute);margin-left:auto;font-size:14px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:20px}
+.card{background:var(--card);border:1px solid var(--line);cursor:pointer;transition:.2s;display:flex;flex-direction:column}
+.card:hover{border-color:var(--gold);box-shadow:0 6px 20px rgba(18,53,36,.12)}
+.ph{aspect-ratio:4/5;background:#edf1ed;display:flex;align-items:center;justify-content:center;font:600 64px 'Cormorant Garamond',serif;color:var(--gold);overflow:hidden}
+.ph img{width:100%;height:100%;object-fit:cover;display:block}
+.info{padding:12px 14px 14px}
+.price{color:var(--gold2);font:600 22px 'Cormorant Garamond',serif}
+.t{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.meta{color:var(--mute);font-size:13px}
+.empty{grid-column:1/-1;text-align:center;color:var(--mute);padding:60px 0}
+.ov{position:fixed;inset:0;background:rgba(18,53,36,.45);display:flex;align-items:flex-start;justify-content:center;padding:4vh 4vw;overflow:auto;z-index:50}
+.modal{background:var(--bg);border:1px solid var(--line);box-shadow:0 20px 60px rgba(0,0,0,.25);width:100%;max-width:520px;padding:28px;position:relative;margin:auto}
+.modal.wide{max-width:860px}
+.x{position:absolute;top:8px;right:12px;background:none;border:0;font-size:28px;color:var(--mute);cursor:pointer}
+.modal h2{font-size:30px;color:var(--gold2);margin-bottom:14px}
+.f{display:grid;gap:12px}
+.f label{display:grid;gap:4px;font-size:13px;color:var(--mute);letter-spacing:.04em}
+.f .r{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.tabs{display:flex;gap:18px;margin-bottom:16px;border-bottom:1px solid var(--line)}
+.tabs button{background:none;border:0;padding:8px 0;color:var(--mute);cursor:pointer;text-transform:uppercase;letter-spacing:.1em;font-size:13px;border-bottom:2px solid transparent}
+.tabs button.on{color:var(--gold2);border-color:var(--gold)}
+.err{color:var(--err);font-size:14px;min-height:20px}
+.det{display:grid;grid-template-columns:1fr 1fr;gap:26px}
+@media(max-width:700px){.det{grid-template-columns:1fr}.f .r{grid-template-columns:1fr}.count{margin-left:0;width:100%}}
+.det .ph{aspect-ratio:4/5}
+.tag{display:inline-block;border:1px solid var(--line);padding:2px 10px;font-size:12px;margin:0 6px 6px 0;color:var(--mute)}
+.who{color:var(--gold2);background:none;border:0;padding:0;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.ph-head{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin:36px 0 18px}
+.ph-head h2{font-size:38px}
+footer{border-top:1px solid var(--line);text-align:center;padding:26px 5vw;color:var(--mute);font-size:13px}
+</style>
+</head>
+<body>
+<header>
+  <button class="logo" onclick="go('home')">Baron &amp; Brooks<small>Second hand · Est. 2026</small></button>
+  <nav id="nav"></nav>
+</header>
+<main id="main"></main>
+<footer>© Baron &amp; Brooks · Klassiska plagg i andra händer</footer>
+<div id="ov" class="ov" style="display:none"></div>
+
+<script>
+const CATS=['Damkläder','Herrkläder','Barnkläder','Skor','Väskor','Accessoarer'];
+const CONDS=['Nyskick','Mycket bra skick','Bra skick','Använd'];
+const SIZES=['XXS','XS','S','M','L','XL','XXL','One size','Skor 36–40','Skor 41–46'];
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const kr=n=>Number(n).toLocaleString('sv-SE')+' kr';
+const rd=(k,d)=>{try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}};
+const wr=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v));return true}catch(e){return false}};
+
+let users=rd('bb_users',[]), items=rd('bb_items',null), me=rd('bb_me',null);
+if(!items){
+  const d=(t,p,c,s,k,b,u)=>({id:'s'+t.length+p,title:t,price:p,cat:c,size:s,cond:k,desc:b,seller:u,email:'',img:'',ts:Date.now()-p*1e6,demo:true});
+  items=[
+    d('Kavaj i ull, mörkgrön',1200,'Herrkläder','L','Mycket bra skick','Klassisk enkelknäppt kavaj i tjock ull med mässingsknappar. Knappt använd.','Exempel'),
+    d('Kashmirtröja, kräm',650,'Damkläder','M','Bra skick','Mjuk polotröja i 100 % kashmir. Inga hål eller noppor.','Exempel'),
+    d('Trenchcoat, beige',1450,'Damkläder','S','Nyskick','Dubbelknäppt trenchcoat med skärp. Använd en säsong.','Exempel'),
+    d('Läderloafers, brun',890,'Skor','Skor 41–46','Bra skick','Handsydda loafers i mörkbrunt skinn, nysulade.','Exempel'),
+    d('Silkesscarf med hästmotiv',380,'Accessoarer','One size','Mycket bra skick','Handrullade kanter, äkta siden.','Exempel'),
+    d('Weekendbag i vaxad bomull',720,'Väskor','One size','Bra skick','Rymlig väska med läderdetaljer och axelrem.','Exempel')
+  ];wr('bb_items',items);
+}
+let view='home', viewUser=null, F={q:'',cat:'',size:'',cond:'',max:'',sort:'new'};
+
+async function hash(pw,salt){
+  const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(salt+':'+pw));
+  return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('');
+}
+function go(v,u){view=v;viewUser=u||null;closeM();render();window.scrollTo(0,0)}
+function openM(html,wide){const o=$('#ov');o.innerHTML='<div class="modal'+(wide?' wide':'')+'"><button class="x" onclick="closeM()" aria-label="Stäng">×</button>'+html+'</div>';o.style.display='flex'}
+function closeM(){const o=$('#ov');o.style.display='none';o.innerHTML=''}
+$('#ov').addEventListener('click',e=>{if(e.target.id==='ov')closeM()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeM()});
+
+function renderNav(){
+  $('#nav').innerHTML=me
+   ?`<button class="btn solid" onclick="sellForm()">+ Sälj ett plagg</button><button class="btn link" onclick="go('profile','${esc(me)}')">@${esc(me)}</button><button class="btn link" onclick="logout()">Logga ut</button>`
+   :`<button class="btn link" onclick="authForm('login')">Logga in</button><button class="btn solid" onclick="authForm('reg')">Skapa profil</button>`;
+}
+function render(){
+  renderNav();
+  if(view==='profile'){
+    const mine=items.filter(i=>i.seller===viewUser).sort((a,b)=>b.ts-a.ts);
+    $('#main').innerHTML=`<div class="wrap"><div class="ph-head"><h2>@${esc(viewUser)}</h2><span class="meta">${mine.length} plagg till salu</span></div><div class="grid">${mine.map(cardH).join('')||'<div class="empty">Inga plagg uppladdade ännu.</div>'}</div></div>`;
+    return;
+  }
+  const opt=(a,v)=>a.map(x=>`<option ${x===v?'selected':''}>${esc(x)}</option>`).join('');
+  $('#main').innerHTML=`
+  <section class="hero"><h1>Klassiska plagg,<br><em>nya ägare</em></h1><p>Köp och sälj exklusiv second hand. Skapa en profil och lägg upp dina egna plagg på några minuter.</p>
+  <div class="search"><input id="q" type="search" placeholder="Sök på plagg, märke eller beskrivning…" value="${esc(F.q)}" oninput="F.q=this.value;grid()"></div></section>
+  <div class="wrap"><div class="filters">
+   <select onchange="F.cat=this.value;grid()"><option value="">Alla kategorier</option>${opt(CATS,F.cat)}</select>
+   <select onchange="F.size=this.value;grid()"><option value="">Alla storlekar</option>${opt(SIZES,F.size)}</select>
+   <select onchange="F.cond=this.value;grid()"><option value="">Alla skick</option>${opt(CONDS,F.cond)}</select>
+   <input type="number" min="0" placeholder="Maxpris (kr)" value="${esc(F.max)}" style="width:140px" oninput="F.max=this.value;grid()">
+   <select onchange="F.sort=this.value;grid()"><option value="new" ${F.sort==='new'?'selected':''}>Nyast först</option><option value="lo" ${F.sort==='lo'?'selected':''}>Lägst pris</option><option value="hi" ${F.sort==='hi'?'selected':''}>Högst pris</option></select>
+   <span class="count" id="cnt"></span></div><div class="grid" id="grid"></div></div>`;
+  grid();
+}
+function cardH(i){
+  return `<div class="card" onclick="detail('${i.id}')"><div class="ph">${i.img?`<img src="${i.img}" alt="${esc(i.title)}" loading="lazy">`:esc(i.title[0]||'B')}</div><div class="info"><div class="price">${kr(i.price)}</div><div class="t">${esc(i.title)}</div><div class="meta">${esc(i.size)} · ${esc(i.cond)}</div><div class="meta">@${esc(i.seller)}</div></div></div>`;
+}
+function grid(){
+  const q=F.q.trim().toLowerCase();
+  let r=items.filter(i=>(!q||(i.title+' '+i.desc+' '+i.cat).toLowerCase().includes(q))&&(!F.cat||i.cat===F.cat)&&(!F.size||i.size===F.size)&&(!F.cond||i.cond===F.cond)&&(!F.max||i.price<=+F.max));
+  r.sort((a,b)=>F.sort==='lo'?a.price-b.price:F.sort==='hi'?b.price-a.price:b.ts-a.ts);
+  $('#grid').innerHTML=r.map(cardH).join('')||'<div class="empty">Inga plagg matchar din sökning.</div>';
+  $('#cnt').textContent=r.length+' plagg';
+}
+function detail(id){
+  const i=items.find(x=>x.id===id);if(!i)return;
+  const own=me===i.seller;
+  const contact=own?`<button class="btn danger" onclick="delItem('${i.id}')">Ta bort annons</button>`
+    :me?`<a class="btn solid" style="text-decoration:none;display:inline-block" href="mailto:${esc(i.email||'')}?subject=${encodeURIComponent('Baron & Brooks: '+i.title)}" ${i.email?'':'onclick="alert(\'Detta är en exempelannons.\');return false"'}>Kontakta säljaren</a>`
+    :`<button class="btn" onclick="authForm('login')">Logga in för att kontakta säljaren</button>`;
+  openM(`<div class="det"><div class="ph">${i.img?`<img src="${i.img}" alt="">`:esc(i.title[0]||'B')}</div><div><h2>${esc(i.title)}</h2><div class="price" style="font-size:32px;margin-bottom:10px">${kr(i.price)}</div>
+  <span class="tag">${esc(i.cat)}</span><span class="tag">Strl ${esc(i.size)}</span><span class="tag">${esc(i.cond)}</span>
+  <p style="white-space:pre-wrap">${esc(i.desc)}</p><p class="meta">Säljare: <button class="who" onclick="go('profile','${esc(i.seller)}')">@${esc(i.seller)}</button></p>${contact}</div></div>`,true);
+}
+function authForm(tab){
+  const reg=tab==='reg';
+  openM(`<div class="tabs"><button class="${reg?'':'on'}" onclick="authForm('login')">Logga in</button><button class="${reg?'on':''}" onclick="authForm('reg')">Skapa profil</button></div>
+  <form class="f" onsubmit="${reg?'doReg':'doLogin'}(event)">
+   ${reg?'<label>E-post<input name="email" type="email" required autocomplete="email"></label>':''}
+   <label>${reg?'Användarnamn':'Användarnamn eller e-post'}<input name="user" required ${reg?'minlength="3" maxlength="20" pattern="[A-Za-z0-9_.\\-]+" title="Bokstäver, siffror, _ . -"':''} autocomplete="username"></label>
+   <label>Lösenord${reg?' (minst 8 tecken)':''}<input name="pw" type="password" required ${reg?'minlength="8"':''} autocomplete="${reg?'new-password':'current-password'}"></label>
+   <div class="err" id="err"></div><button class="btn solid" type="submit">${reg?'Skapa profil':'Logga in'}</button></form>`);
+}
+async function doReg(e){
+  e.preventDefault();const f=e.target,email=f.email.value.trim().toLowerCase(),u=f.user.value.trim(),pw=f.pw.value;
+  if(users.some(x=>x.user.toLowerCase()===u.toLowerCase()))return $('#err').textContent='Användarnamnet är upptaget.';
+  if(users.some(x=>x.email===email))return $('#err').textContent='E-postadressen används redan.';
+  users.push({email,user:u,h:await hash(pw,u.toLowerCase())});
+  if(!wr('bb_users',users)){users.pop();return $('#err').textContent='Kunde inte spara profilen.'}
+  me=u;wr('bb_me',me);closeM();render();
+}
+async function doLogin(e){
+  e.preventDefault();const f=e.target,v=f.user.value.trim().toLowerCase();
+  const a=users.find(x=>x.user.toLowerCase()===v||x.email===v);
+  if(!a||a.h!==await hash(f.pw.value,a.user.toLowerCase()))return $('#err').textContent='Fel användarnamn eller lösenord.';
+  me=a.user;wr('bb_me',me);closeM();render();
+}
+function logout(){me=null;wr('bb_me',null);go('home')}
+function sellForm(){
+  const o=a=>a.map(x=>`<option>${esc(x)}</option>`).join('');
+  openM(`<h2>Sälj ett plagg</h2><form class="f" onsubmit="doSell(event)">
+   <label>Rubrik<input name="title" required maxlength="70"></label>
+   <div class="r"><label>Pris (kr)<input name="price" type="number" min="1" max="1000000" required></label><label>Kategori<select name="cat">${o(CATS)}</select></label></div>
+   <div class="r"><label>Storlek<select name="size">${o(SIZES)}</select></label><label>Skick<select name="cond">${o(CONDS)}</select></label></div>
+   <label>Beskrivning<textarea name="desc" rows="4" required maxlength="1500"></textarea></label>
+   <label>Bild<input name="img" type="file" accept="image/*"></label>
+   <div class="err" id="err"></div><button class="btn solid" type="submit">Lägg upp annons</button></form>`);
+}
+const shrink=f=>new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>{const i=new Image();i.onload=()=>{const k=Math.min(1,640/Math.max(i.width,i.height)),c=document.createElement('canvas');c.width=i.width*k;c.height=i.height*k;c.getContext('2d').drawImage(i,0,0,c.width,c.height);res(c.toDataURL('image/jpeg',.72))};i.onerror=rej;i.src=r.result};r.onerror=rej;r.readAsDataURL(f)});
+async function doSell(e){
+  e.preventDefault();const f=e.target,u=users.find(x=>x.user===me);if(!u)return;
+  let img='';try{if(f.img.files[0])img=await shrink(f.img.files[0])}catch(x){return $('#err').textContent='Bilden kunde inte läsas.'}
+  const it={id:Date.now().toString(36)+Math.random().toString(36).slice(2,6),title:f.title.value.trim(),price:Math.round(+f.price.value),cat:f.cat.value,size:f.size.value,cond:f.cond.value,desc:f.desc.value.trim(),seller:me,email:u.email,img,ts:Date.now()};
+  items.unshift(it);
+  if(!wr('bb_items',items)){items.shift();return $('#err').textContent='Lagringen är full. Prova en mindre bild eller ta bort någon annons.'}
+  closeM();go('profile',me);
+}
+function delItem(id){
+  if(!confirm('Ta bort annonsen?'))return;
+  items=items.filter(i=>i.id!==id);wr('bb_items',items);closeM();render();
+}
+if(me&&!users.some(u=>u.user===me)){me=null;wr('bb_me',null)}
+render();
+</script>
+</body>
+</html>
